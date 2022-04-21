@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GroceryTerminal.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,12 +8,16 @@ namespace GroceryTerminal
     public class PointOfSalesTerminal
     {
         private IList<Product> _products;
-        private Dictionary<string, int> _scannedProducts;
+        private IList<ScannedProduct> _scannedProducts;
+        private IProductPriceCalculator _productPriceCalculator;
 
         public PointOfSalesTerminal()
         {
             _products = new List<Product>();
-            _scannedProducts = new Dictionary<string, int>();
+            _scannedProducts = new List<ScannedProduct>();
+
+            // Should be injected into a constructor with DI 
+            _productPriceCalculator = new ProductPriceCalculator();
         }
 
         public void AddProduct(string name, decimal price, int specialNumber, decimal specialPrice)
@@ -32,35 +37,25 @@ namespace GroceryTerminal
                 throw new Exception("Product not found");
             }
 
-            if (_scannedProducts.ContainsKey(productName))
+            var product = _products.FirstOrDefault(x => x.Name == productName);
+
+            if (_scannedProducts.Any(x => x.Product.Name == productName))
             {
-                _scannedProducts[productName]++;
+                _scannedProducts.FirstOrDefault(x => x.Product.Name == productName).TimesScanned++;
             }
             else
             {
-                _scannedProducts.Add(productName, 1);
+                _scannedProducts.Add(new ScannedProduct { Product = product, TimesScanned = 1 });
             }
         }
 
         public decimal CalculatePrice()
         {
-            var total = 0m;
+            var total = 0M;
 
             foreach (var scannedProduct in _scannedProducts)
             {
-                var product = _products.FirstOrDefault(x => x.Name == scannedProduct.Key);
-                var productScanned = scannedProduct.Value;
-
-                if (product.MultiBuySpecial != null)
-                {
-                    var specialDealNumber = Decimal.ToInt32(Math.Truncate(Decimal.Divide(scannedProduct.Value, product.MultiBuySpecial.Number)));
-
-                    total += specialDealNumber * product.MultiBuySpecial.Price;
-
-                    productScanned -= specialDealNumber * product.MultiBuySpecial.Number;
-                }
-
-                total += product.Price * productScanned;
+                total += _productPriceCalculator.Calculate(scannedProduct);
             }
 
             return total;

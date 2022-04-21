@@ -1,0 +1,7 @@
+﻿namespace GroceryTerminal
+{
+    interface ISpecial
+    {
+
+    }
+}
