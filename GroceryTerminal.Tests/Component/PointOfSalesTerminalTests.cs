@@ -12,6 +12,11 @@ namespace GroceryTerminal.Tests.Component
         public void Setup()
         {
             _terminal = new PointOfSalesTerminal();
+
+            _terminal.AddProduct("A", 1.25M);
+            _terminal.AddProduct("B", 4.25M);
+            _terminal.AddProduct("C", 1M);
+            _terminal.AddProduct("D", 0.75M);
         }
 
         [Test, TestCaseSource("TestScenarios")]
