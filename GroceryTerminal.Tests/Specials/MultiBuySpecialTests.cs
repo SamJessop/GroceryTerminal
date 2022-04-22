@@ -13,7 +13,7 @@ namespace GroceryTerminal.Tests.Specials
         {
             var testClass = new MultiBuySpecial(multiBuySpecialNumber, multiBuySpecialPrice);
 
-            var scannedProduct = new ScannedProduct { Product = new Product("A", productPrice, testClass), TimesScanned = timesScanned };
+            var scannedProduct = new ScannedProduct { Product = new Product("A", productPrice), TimesScanned = timesScanned };
 
             // Act
             var result = testClass.CalculatePrice(scannedProduct);

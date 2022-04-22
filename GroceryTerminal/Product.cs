@@ -1,4 +1,6 @@
-﻿namespace GroceryTerminal
+﻿using System;
+
+namespace GroceryTerminal
 {
     public class Product
     {
@@ -8,11 +10,15 @@
 
         public ISpecial Special { get; set; }
 
-        public Product(string name, decimal price, ISpecial special = null)
+        public Product(string name, decimal price)
         {
+            if (string.IsNullOrWhiteSpace(name) || price < 0)
+            {
+                throw new ArgumentException("Product requires a name and a price 0 or above");
+            }
+
             Name = name;
             Price = price;
-            Special = special;
         }
     }
 }

@@ -12,9 +12,9 @@ namespace GroceryTerminal.Tests.Specials
         [TestCase(10, 2, 30, 14)]
         public void CalculatePrice_calculates_correct_price(decimal productPrice, int timesScanned, int percentOff, decimal expectedPrice)
         {
-            var testClass = new PercentOffSpecial { PercentOff = percentOff };
+            var testClass = new PercentOffSpecial(percentOff);
 
-            var scannedProduct = new ScannedProduct { Product = new Product("A", productPrice, testClass), TimesScanned = timesScanned };
+            var scannedProduct = new ScannedProduct { Product = new Product("A", productPrice), TimesScanned = timesScanned };
 
             // Act
             var result = testClass.CalculatePrice(scannedProduct);

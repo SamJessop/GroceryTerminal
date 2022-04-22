@@ -4,12 +4,17 @@ namespace GroceryTerminal.Specials
 {
     public class MultiBuySpecial : ISpecial
     {
-        public int Number { get; set; }
+        public int Number { get; }
 
-        public decimal Price { get; set; }
+        public decimal Price { get; }
 
         public MultiBuySpecial(int number, decimal price)
         {
+            if (number <= 0 || price <= 0)
+            {
+                throw new ArgumentException("number and price need to be greater than 0 to be a valid multi buy special");
+            }
+
             Number = number;
             Price = price;
         }

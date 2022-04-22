@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Moq;
 using NUnit.Framework;
 
 namespace GroceryTerminal.Tests
@@ -9,7 +10,6 @@ namespace GroceryTerminal.Tests
         [TestCase(10, 1, 10)]
         [TestCase(5.5, 2, 11)]
         [TestCase(100, 0, 0)]
-        [TestCase(-10, 1, -10)]
         public void Calculate_calculates_price_of_scanned_product(decimal price, int timesScanned, decimal expectedResult)
         {
             var testClass = new ProductPriceCalculator();
@@ -22,9 +22,20 @@ namespace GroceryTerminal.Tests
         }
 
         public void Calculate_calls_specials_calculate_method_if_product_has_special()
-        { }
+        {
+            var specialMock = new Mock<ISpecial>();
 
-        public void Calculate_doesnt_call_special_calculate_method_if_product_doesn_not_have_a_special()
-        { }
+            var testClass = new ProductPriceCalculator();
+            var product = new Product("A", 10M);
+            product.Special = specialMock.Object;
+
+            var scannedProduct = new ScannedProduct { Product = product, TimesScanned = 1 };
+
+            // Act
+            testClass.Calculate(scannedProduct);
+
+            // Assert
+            specialMock.Verify(x => x.CalculatePrice(scannedProduct), Times.Once);
+        }
     }
 }

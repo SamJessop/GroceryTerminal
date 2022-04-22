@@ -1,6 +1,6 @@
-﻿using GroceryTerminal.Interfaces;
+﻿using GroceryTerminal.Exceptions;
+using GroceryTerminal.Interfaces;
 using GroceryTerminal.Specials;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,7 +35,7 @@ namespace GroceryTerminal
         public void AddPercentOfflSpecial(string productName, int percentOff)
         {
             var product = GetProduct(productName);
-            product.Special = new PercentOffSpecial { PercentOff = percentOff };
+            product.Special = new PercentOffSpecial(percentOff);
         }
 
         public void ScanProduct(string productName)
@@ -70,7 +70,7 @@ namespace GroceryTerminal
 
             if (product == null)
             {
-                throw new Exception("Product not found");
+                throw new ProductNotFoundException("Product not found");
             }
 
             return product;
