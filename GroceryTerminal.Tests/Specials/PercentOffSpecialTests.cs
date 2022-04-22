@@ -14,7 +14,8 @@ namespace GroceryTerminal.Tests.Specials
         {
             var testClass = new PercentOffSpecial(percentOff);
 
-            var scannedProduct = new ScannedProduct { Product = new Product("A", productPrice), TimesScanned = timesScanned };
+            var scannedProduct = new ScannedProduct(new Product("A", productPrice));
+            scannedProduct.TimesScanned = timesScanned;
 
             // Act
             var result = testClass.CalculatePrice(scannedProduct);

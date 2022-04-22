@@ -12,8 +12,8 @@ namespace GroceryTerminal.Tests.Specials
         public void CalculatePrice_calculates_correct_price(int multiBuySpecialNumber, decimal multiBuySpecialPrice, decimal productPrice, int timesScanned, decimal expectedPrice)
         {
             var testClass = new MultiBuySpecial(multiBuySpecialNumber, multiBuySpecialPrice);
-
-            var scannedProduct = new ScannedProduct { Product = new Product("A", productPrice), TimesScanned = timesScanned };
+            var scannedProduct = new ScannedProduct(new Product("A", productPrice));
+            scannedProduct.TimesScanned = timesScanned;
 
             // Act
             var result = testClass.CalculatePrice(scannedProduct);

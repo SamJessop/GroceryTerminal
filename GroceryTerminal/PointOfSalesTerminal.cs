@@ -48,7 +48,7 @@ namespace GroceryTerminal
             }
             else
             {
-                _scannedProducts.Add(new ScannedProduct { Product = product, TimesScanned = 1 });
+                _scannedProducts.Add(new ScannedProduct(product));
             }
         }
 

@@ -13,9 +13,12 @@ namespace GroceryTerminal.Tests
         public void Calculate_calculates_price_of_scanned_product(decimal price, int timesScanned, decimal expectedResult)
         {
             var testClass = new ProductPriceCalculator();
+            var scannedProduct = new ScannedProduct(new Product("A", price));
+            scannedProduct.TimesScanned = timesScanned;
 
             // Act
-            var result = testClass.Calculate(new ScannedProduct { Product = new Product("A", price), TimesScanned = timesScanned });
+            var result = testClass.Calculate(scannedProduct);
+
 
             // Assert
             result.Should().Be(expectedResult);
@@ -29,7 +32,7 @@ namespace GroceryTerminal.Tests
             var product = new Product("A", 10M);
             product.Special = specialMock.Object;
 
-            var scannedProduct = new ScannedProduct { Product = product, TimesScanned = 1 };
+            var scannedProduct = new ScannedProduct(product);
 
             // Act
             testClass.Calculate(scannedProduct);
