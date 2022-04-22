@@ -14,9 +14,11 @@ namespace GroceryTerminal.Tests.Component
         {
             _terminal = new PointOfSalesTerminal();
 
-            _terminal.AddProduct("A", 1.25M, 3, 3M);
+            _terminal.AddProduct("A", 1.25M);
+            _terminal.AddMultiBuySpecial("A", 3, 3M);
             _terminal.AddProduct("B", 4.25M);
-            _terminal.AddProduct("C", 1M, 6, 5M);
+            _terminal.AddProduct("C", 1M);
+            _terminal.AddMultiBuySpecial("C", 6, 5M);
             _terminal.AddProduct("D", 0.75M);
         }
 

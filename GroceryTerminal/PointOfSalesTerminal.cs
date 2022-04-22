@@ -1,4 +1,5 @@
 ﻿using GroceryTerminal.Interfaces;
+using GroceryTerminal.Specials;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,24 +21,26 @@ namespace GroceryTerminal
             _productPriceCalculator = new ProductPriceCalculator();
         }
 
-        public void AddProduct(string name, decimal price, int specialNumber, decimal specialPrice)
-        {
-            _products.Add(new Product(name, price, new MultiBuySpecial(specialNumber, specialPrice)));
-        }
-
         public void AddProduct(string name, decimal price)
         {
             _products.Add(new Product(name, price));
         }
 
+        public void AddMultiBuySpecial(string productName, int specialNumber, decimal specialPrice)
+        {
+            var product = GetProduct(productName);
+            product.Special = new MultiBuySpecial(specialNumber, specialPrice);
+        }
+
+        public void AddPercentOfflSpecial(string productName, int percentOff)
+        {
+            var product = GetProduct(productName);
+            product.Special = new PercentOffSpecial { PercentOff = percentOff };
+        }
+
         public void ScanProduct(string productName)
         {
-            if (!_products.Any(x => x.Name == productName))
-            {
-                throw new Exception("Product not found");
-            }
-
-            var product = _products.FirstOrDefault(x => x.Name == productName);
+            var product = GetProduct(productName);
 
             if (_scannedProducts.Any(x => x.Product.Name == productName))
             {
@@ -59,6 +62,18 @@ namespace GroceryTerminal
             }
 
             return total;
+        }
+
+        private Product GetProduct(string productName)
+        {
+            var product = _products.FirstOrDefault(x => x.Name == productName);
+
+            if (product == null)
+            {
+                throw new Exception("Product not found");
+            }
+
+            return product;
         }
     }
 }

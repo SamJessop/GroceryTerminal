@@ -1,5 +1,4 @@
 ﻿using GroceryTerminal.Interfaces;
-using System;
 
 namespace GroceryTerminal
 {
@@ -7,7 +6,7 @@ namespace GroceryTerminal
     {
         public decimal Calculate(ScannedProduct scannedProduct)
         {
-            if (scannedProduct.Product.Special!= null)
+            if (scannedProduct.Product.Special != null)
             {
                 return scannedProduct.Product.Special.CalculatePrice(scannedProduct);
             }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GroceryTerminal
+namespace GroceryTerminal.Specials
 {
     public class MultiBuySpecial : ISpecial
     {

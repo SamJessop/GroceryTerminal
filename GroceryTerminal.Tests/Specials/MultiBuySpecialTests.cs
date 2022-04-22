@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using GroceryTerminal.Specials;
 using NUnit.Framework;
 
 namespace GroceryTerminal.Tests.Specials
