@@ -7,23 +7,14 @@ namespace GroceryTerminal
     {
         public decimal Calculate(ScannedProduct scannedProduct)
         {
-            var total = 0m;
-
-            var product = scannedProduct.Product;
-            var productScanned = scannedProduct.TimesScanned;
-
-            if (product.MultiBuySpecial != null)
+            if (scannedProduct.Product.Special!= null)
             {
-                var specialDealNumber = Decimal.ToInt32(Math.Truncate(Decimal.Divide(productScanned, product.MultiBuySpecial.Number)));
-
-                total += specialDealNumber * product.MultiBuySpecial.Price;
-
-                productScanned -= specialDealNumber * product.MultiBuySpecial.Number;
+                return scannedProduct.Product.Special.CalculatePrice(scannedProduct);
             }
-
-            total += product.Price * productScanned;
-
-            return total;
+            else
+            {
+                return scannedProduct.Product.Price * scannedProduct.TimesScanned;
+            }
         }
     }
 }

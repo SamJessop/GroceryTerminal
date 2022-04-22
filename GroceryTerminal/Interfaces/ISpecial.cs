@@ -1,7 +1,7 @@
 ﻿namespace GroceryTerminal
 {
-    interface ISpecial
+    public interface ISpecial
     {
-
+        decimal CalculatePrice(ScannedProduct scannedProduct);
     }
 }

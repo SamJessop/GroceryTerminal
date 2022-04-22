@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 namespace GroceryTerminal.Tests.Component
 {
+    [TestFixture]
     public class PointOfSalesTerminalTests
     {
         private PointOfSalesTerminal _terminal;

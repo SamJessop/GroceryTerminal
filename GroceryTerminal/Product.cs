@@ -6,13 +6,13 @@
 
         public decimal Price { get; set; }
 
-        public MultiBuySpecial MultiBuySpecial { get; set; }
+        public ISpecial Special { get; set; }
 
-        public Product(string name, decimal price, MultiBuySpecial multiBuySpecial = null)
+        public Product(string name, decimal price, ISpecial special = null)
         {
             Name = name;
             Price = price;
-            MultiBuySpecial = multiBuySpecial;
+            Special = special;
         }
     }
 }

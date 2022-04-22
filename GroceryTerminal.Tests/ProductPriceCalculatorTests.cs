@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace GroceryTerminal.Tests
 {
+    [TestFixture]
     public class ProductPriceCalculatorTests
     {
         [TestCase(10, 1, 10)]
@@ -19,5 +20,11 @@ namespace GroceryTerminal.Tests
             // Assert
             result.Should().Be(expectedResult);
         }
+
+        public void Calculate_calls_specials_calculate_method_if_product_has_special()
+        { }
+
+        public void Calculate_doesnt_call_special_calculate_method_if_product_doesn_not_have_a_special()
+        { }
     }
 }
